@@ -88,3 +88,74 @@ return true ;
 retrurn false ;
 }
 } :
+
+
+//SCC(stronglly connected component) BY KOSRAJU'S ALGORITHUM
+*it help in finding the stronglly connected component in the directed graph
+*Within every scc each node are rechable
+*in this algorithum reversed visiting of node can be done so that we can't do the whole traversal in the ehtire tree
+
+----sort all the node according to their finishing time do the topological sort .tc O(n)  sc 
+-----do the transpose of graph (change the direction of graph) . tc = O(n + e)
+----again od the dfs call store the count of each scc node. tc = O(n + e)
+
+we need stack + visited arry + transpose graph = o(n) + o(n) + o(n+e)
+
+
+class Solution
+{
+private:
+    void dfs(int node, vector<int> &vis, vector<int> adj[],
+             stack<int> &st) {
+        vis[node] = 1;
+        for (auto it : adj[node]) {
+            if (!vis[it]) {
+                dfs(it, vis, adj, st);
+            }
+        }
+
+        st.push(node);
+    }
+private:
+    void dfs3(int node, vector<int> &vis, vector<int> adjT[]) {
+        vis[node] = 1;
+        for (auto it : adjT[node]) {
+            if (!vis[it]) {
+                dfs3(it, vis, adjT);
+            }
+        }
+    }
+public:
+    //Function to find number of strongly connected components in the graph. this is topological sort
+    int kosaraju(int V, vector<int> adj[])
+    {
+        vector<int> vis(V, 0);
+        stack<int> st;
+        for (int i = 0; i < V; i++) {
+            if (!vis[i]) {
+                dfs(i, vis, adj, st);
+            }
+        }
+//transformation the direction
+        vector<int> adjT[V];
+        for (int i = 0; i < V; i++) {
+            vis[i] = 0;
+            for (auto it : adj[i]) {
+                // i -> it
+                // it -> i
+                adjT[it].push_back(i);
+            }
+        }
+    //count the scc nodes
+        int scc = 0;
+        while (!st.empty()) {
+            int node = st.top();
+            st.pop();
+            if (!vis[node]) {
+                scc++;
+                dfs3(node, vis, adjT);
+            }
+        }
+        return scc;
+    }
+}:
