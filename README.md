@@ -159,3 +159,20 @@ public:
         return scc;
     }
 }:
+
+
+//FLROID WERHED ALGORITHUM - it is a multisource shortest path algorithum
+help us detect the negetive cycle( weight in the cycle is negetive)
+
+now nuild the adjecency matrux then waya 0 matrix then waya one from waya zero and so on tll the last node
+
+
+
+
+
+
+
+
+
+
+
