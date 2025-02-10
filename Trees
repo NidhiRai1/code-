@@ -1,1 +1,79 @@
+1.BFS(Breadth-First Search)
+BFS explores a tree level by level.
+It uses a queue (FIFO - First In, First Out) data structure.
+All nodes at a given depth are visited before moving to the next level.
+
+       1
+      / \
+     2   3
+    / \   \
+   4   5   6
+BFS Traversal: 1 → 2 → 3 → 4 → 5 → 6
+
+
+Step-by-step execution of BFS:
+Queue starts with [1]
+Process 1: Print 1, add 2 and 3 → Queue: [2, 3]
+Process 2: Print 2, add 4 and 5 → Queue: [3, 4, 5]
+Process 3: Print 3, add 6 → Queue: [4, 5, 6]
+Process 4: Print 4 (no children) → Queue: [5, 6]
+Process 5: Print 5 (no children) → Queue: [6]
+Process 6: Print 6 (no children) → Queue: [] (Empty, so stop)
+
+from collections import deque # double ended queue
+
+def bfs(root):
+    if not root:
+        return
+    queue = deque([root])  # Initialize queue with root
+    while queue:
+        node = queue.popleft()  # Dequeue the front node
+        print(node.val, end=" ")
+        if node.left:
+            queue.append(node.left)  # Enqueue left child
+        if node.right:
+            queue.append(node.right)  # Enqueue right child
+
+
+
+2. DFS (Depth-First Search)
+DFS explores a tree branch as deep as possible before backtracking.
+It uses a stack (LIFO - Last In, First Out), which is implemented using recursion or an explicit stack.
+
+       1
+      / \
+     2   3
+    / \   \
+   4   5   6
+
+Types of DFS Traversal
+Preorder (Root → Left → Right)
+Example: 1 → 2 → 4 → 5 → 3 → 6
+Inorder (Left → Root → Right)
+Example: 4 → 2 → 5 → 1 → 3 → 6
+Postorder (Left → Right → Root)
+Example: 4 → 5 → 2 → 6 → 3 → 1
+
+
+def dfs_preorder(root):
+    if not root:
+        return
+    print(root.val, end=" ")
+    dfs_preorder(root.left)
+    dfs_preorder(root.right)
+
+def dfs_inorder(root):
+    if not root:
+        return
+    dfs_inorder(root.left)
+    print(root.val, end=" ")
+    dfs_inorder(root.right)
+
+def dfs_postorder(root):
+    if not root:
+        return
+    dfs_postorder(root.left)
+    dfs_postorder(root.right)
+    print(root.val, end=" ")
+
 
