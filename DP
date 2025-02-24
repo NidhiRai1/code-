@@ -1,1 +1,81 @@
+Dp questions 
+
+1️⃣ Climbing Stairs (Fibonacci Variant)
+Problem: You can climb 1 or 2 steps at a time. Find the number of ways to reach the top (n-th step).
+
+Brootfors Approch 
+
+def climbStairs(n):
+    if n <= 2:
+        return n  # Base cases: 1 step → 1 way, 2 steps → 2 ways
+    return climbStairs(n - 1) + climbStairs(n - 2)  # Recursive formula
+
+TC - 2^n    and    SC - n
+
+Midleel Approch
+
+def climbStairs(n):
+    if n <= 2:
+        return n
+    dp = [0] * (n + 1)
+    dp[1], dp[2] = 1, 2
+    for i in range(3, n + 1):
+        dp[i] = dp[i - 1] + dp[i - 2]
+    return dp[n]
+
+TC - N     AND    SC - N 
+
+Best Approch 
+
+def climbStairs(n):
+    if n <= 2:
+        return n
+    prev2, prev1 = 1, 2  # Base cases (1 step → 1 way, 2 steps → 2 ways)
+    for _ in range(3, n + 1):
+        curr = prev1 + prev2  # Store the current Fibonacci sum
+        prev2, prev1 = prev1, curr  # Shift values
+    return prev1  # Final result
+
+tc - n and sc - 1
+
+
+2️⃣ Coin Change
+Problem: Given coins[] and an amount target, find the minimum number of coins needed.
+
+BROOTFORCE APPROCH 
+
+def coinChangeBruteForce(coins, amount):
+    if amount == 0:
+        return 0  # Base case: No coins needed
+    if amount < 0:
+        return float('inf')  # Impossible case
+
+    minCoins = float('inf')
+    for coin in coins:
+        res = coinChangeBruteForce(coins, amount - coin)  # Try taking each coin
+        if res != float('inf'):
+            minCoins = min(minCoins, res + 1)  # Update minimum
+
+    return minCoins
+
+TC - 2^n   AND     SC - n
+
+MIDLEVEL/best APPROCH 
+
+def coinChangeDP(coins, amount):
+    dp = [float('inf')] * (amount + 1)  # Step 1: Initialize DP array
+    dp[0] = 0  # Base case: No coins needed for amount 0
+
+    for coin in coins:  # Step 2: Process each coin
+        for i in range(coin, amount + 1):  # Step 3: Update DP array
+            dp[i] = min(dp[i], dp[i - coin] + 1)
+
+    return dp[amount] if dp[amount] != float('inf') else -1  # Step 4: Return result
+
+tc - m*n     and sc - n
+
+3️⃣ Longest Increasing Subsequence (LIS)
+Problem: Find the length of the longest increasing subsequence in an array.
+
+
 
