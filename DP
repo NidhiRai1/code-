@@ -28,13 +28,16 @@ TC - N     AND    SC - N
 Best Approch 
 
 def climbStairs(n):
-    if n <= 2:
-        return n
-    prev2, prev1 = 1, 2  # Base cases (1 step → 1 way, 2 steps → 2 ways)
-    for _ in range(3, n + 1):
-        curr = prev1 + prev2  # Store the current Fibonacci sum
-        prev2, prev1 = prev1, curr  # Shift values
-    return prev1  # Final result
+    if n == 1:
+            return 1
+        if n == 2:
+            return 2
+        
+        first, second = 1, 2
+        for _ in range(3, n + 1):
+            first, second = second, first + second
+        
+        return second
 
 tc - n and sc - 1
 
@@ -76,6 +79,92 @@ tc - m*n     and sc - n
 
 3️⃣ Longest Increasing Subsequence (LIS)
 Problem: Find the length of the longest increasing subsequence in an array.
+
+
+
+
+
+
+
+4. Fibonacci Number (Top-Down & Bottom-Up)
+Problem: Find the nth Fibonacci number using DP.
+
+The Fibonacci sequence is defined 
+F(n)=F(n−1)+F(n−2)
+
+BROOTFORCE APPROCH 
+
+ def fib(n):
+        if n <= 1:
+            return n
+        return self.fib(n - 1) + self.fib(n - 2)
+
+TC - 2^n                AND      SC - n
+
+BEST APPROCH 
+
+class Solution(object):
+    def fib(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        if n <= 1:
+            return n  # No extra indentation here
+        
+        first, second = 0, 1
+        for _ in range(2, n + 1):
+            first, second = second, first + second  # Shift values
+        
+        return second
+
+TC -   n             AND    SC - 1
+
+
+5. House Robber
+Problem: Given an array where each element represents money in a house, find the maximum money you can rob without robbing adjacent houses.
+
+BROOTFORCE APPROCH 
+
+class Solution(object):
+    def rob(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        return self.helper(nums, 0)
+    
+    def helper(self, nums, index):
+        if index >= len(nums):
+            return 0  # Base case: No houses left
+        
+        # Either rob this house and skip next OR skip this house
+        return max(nums[index] + self.helper(nums, index + 2), self.helper(nums, index + 1))
+
+TC - 2^N       AND       SC - N
+
+OPTIMIZED CODE 
+
+class Solution(object):
+    def rob(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        if not nums:
+            return 0
+        if len(nums) == 1:
+            return nums[0]
+        
+        prev1, prev2 = 0, 0
+        
+        for num in nums:
+            new_rob = max(prev2 + num, prev1)  # Max of robbing this house or skipping
+            prev2, prev1 = prev1, new_rob  # Shift values
+        
+        return prev1
+
+TC - N       AND      SC - 1
 
 
 
