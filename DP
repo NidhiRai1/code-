@@ -166,5 +166,27 @@ class Solution(object):
 
 TC - N       AND      SC - 1
 
+6. Partition Equal Subset Sum
+Problem: Determine if you can partition an array into two subsets with equal sum.
 
+def can_partition_optimized(nums):
+    total_sum = sum(nums)
+    if total_sum % 2 != 0:
+        return False
 
+    target = total_sum // 2
+    dp = [False] * (target + 1)
+    dp[0] = True  # Base case: sum 0 is always possible
+
+    for num in nums:
+        for j in range(target, num - 1, -1):  # Traverse backward
+             if dp[j - num]:  # If subset sum `j - num` is possible
+                 dp[j] = True
+
+    return dp[target]
+
+# Example Usage
+nums = [1, 5, 11, 5]
+print(can_partition_optimized(nums))  # Output: True
+
+TC - O(n * sum/2)  AND SC - sum/2
