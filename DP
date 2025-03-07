@@ -189,4 +189,23 @@ def can_partition_optimized(nums):
 nums = [1, 5, 11, 5]
 print(can_partition_optimized(nums))  # Output: True
 
-TC - O(n * sum/2)  AND SC - sum/2
+TC - O(n * sum/2)  AND SC - sum/2 
+
+
+
+---1.KNAPSECK 
+
+RECURSSION - MEMOIZATION - TOP DOWN APPROCH (NO STACK OVERFLOW)
+
+---1.1 SUBSET SUM PROBLEM - Given arr and sum then you need to chcek the sum is eqaul to total of subset of array 
+
+def subset_recursive(arr, n, S):
+    if S == 0:
+        return True
+    if n == 0:
+        return False
+    if arr[n - 1] > S:
+        return subset_recursive(arr, n - 1, S)
+    return subset_recursive(arr, n - 1, S) or subset_recursive(arr, n - 1, S - arr[n - 1])
+
+
