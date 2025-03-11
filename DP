@@ -240,7 +240,7 @@ class Solution(object):
             for j in range(1, target + 1):
                 # If the current element is less than or equal to target
                 if nums[i-1] <= j:
-                    # Either include or exclude the element
+                    # Either include or exclude the element coz the answer is in boolen
                     dp[i][j] = dp[i-1][j-nums[i-1]] or dp[i-1][j]
                 else:
                     # Exclude the element
@@ -249,7 +249,42 @@ class Solution(object):
         # The answer lies in the bottom-right corner of the matrix
         return dp[n][target]
 
----1.3 COUNT OF SUBSET SUM WITH GIVEN SUM - GIVEN THE ARR AND SUM , COUNT THE SUBSET WHOES SUM IS EQUAL TO GIVEN SUM 
+---1.3 COUNT OF SUBSET SUM WITH GIVEN SUM - GIVEN THE ARR and sum , COUNT THE SUBSET WHOES SUM IS EQUAL TO GIVEN SUM 
 
 eg - [2,3,5,610,8]  sum = 10
+
+class Solution(object):
+    def countSubsetSum(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: int
+        """
+        n = len(nums)
+        
+        # Initialize a dp table to count subsets
+        dp = [[0] * (target + 1) for _ in range(n + 1)]
+        
+        # Base case: There is one way to get sum 0 (empty subset)
+        for i in range(n + 1):
+            dp[i][0] = 1
+        
+        # Fill the DP table
+        for i in range(1, n + 1):
+            for j in range(target + 1):
+                # If the current element is less than or equal to target
+                if nums[i-1] <= j:
+                    # Include the current element + Exclude the current element
+                    dp[i][j] = dp[i-1][j-nums[i-1]] + dp[i-1][j]
+                else:
+                    # Exclude the current element
+                    dp[i][j] = dp[i-1][j]
+        
+        # The answer lies in the bottom-right corner of the matrix
+        return dp[n][target]
+
+---1.4 MINIMUM SUBSET SUM DIFFERNEC - Given an arr you need to calculate the minimum sum differnec between two subset 
+
+
+
 
