@@ -1,0 +1,63 @@
+# Queue 
+
+class Queuee:
+    def __init__(self):
+        self.queue = []
+        
+    def enqueue(self, val):
+        """Add an element to the queue"""
+        self.queue.append(val)
+        
+    def dequeue(self):
+        """Remove and return the front element from the queue"""
+        if not self.isempty():
+            return self.queue.pop(0)
+        print("Queue is empty! Cannot dequeue.")
+        return None
+
+    def front(self):
+        """Return the front element without removing it"""
+        if not self.isempty():
+            return self.queue[0]
+        return None
+
+    def isempty(self):
+        """Check if the queue is empty"""
+        return len(self.queue) == 0  # ✅ Corrected comparison
+    
+    def display(self):
+        """Display the queue elements"""
+        print("Queue:", self.queue)
+
+# Example Usage:
+q = Queuee()
+q.enqueue(10)
+q.enqueue(20)
+q.enqueue(30)
+q.display()  # Queue: [10, 20, 30]
+
+q.dequeue()
+q.display()  # Queue: [20, 30]
+
+print("Front Element:", q.front())  # Front Element: 20
+print("Is Queue Empty?", q.isempty())  # Is Queue Empty? False
+
+
+# Min Heap 
+
+A heap is a special binary tree that follows the heap property:
+## Min Heap → The parent node is always smaller than its child nodes. and When we remove (pop) an element, the smallest element is removed.
+       10                      Min Heap as Array  [10, 20, 30, 40, 50] 
+      /  \
+    20    30
+   /  \  
+  40   50
+
+## Max Heap → The parent node is always greater than its child nodes.When we remove (pop) an element, the largest element is removed.
+       50                       Max Heap as Array   [50, 30, 40, 20, 10]                
+      /  \
+    20    30
+   /  \  
+  40   50
+
+
