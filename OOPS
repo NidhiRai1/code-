@@ -61,3 +61,87 @@ A heap is a special binary tree that follows the heap property:
   40   50
 
 
+import heapq
+
+class MinHeap:
+    def __init__(self):
+        """Initialize an empty min heap"""
+        self.heap = []
+    
+    def push(self, val):
+        """Insert a value into the min heap"""
+        heapq.heappush(self.heap, val)
+    
+    def pop(self):
+        """Remove and return the smallest element"""
+        if self.is_empty():
+            print("Heap is empty! Cannot pop.")
+            return None
+        return heapq.heappop(self.heap)
+
+    def peek(self):
+        """Return the smallest element without removing it"""
+        if self.is_empty():
+            return None
+        return self.heap[0]
+
+    def is_empty(self):
+        """Check if the heap is empty"""
+        return len(self.heap) == 0
+    
+    def display(self):
+        """Print the heap"""
+        print("Min Heap:", self.heap)
+
+class MaxHeap:
+    def __init__(self):
+        """Initialize an empty max heap"""
+        self.heap = []
+    
+    def push(self, val):
+        """Insert a value into the max heap (negate values to use heapq)"""
+        heapq.heappush(self.heap, -val)  # Store negative values
+    
+    def pop(self):
+        """Remove and return the largest element"""
+        if self.is_empty():
+            print("Heap is empty! Cannot pop.")
+            return None
+        return -heapq.heappop(self.heap)  # Convert back to positive
+    
+    def peek(self):
+        """Return the largest element without removing it"""
+        if self.is_empty():
+            return None
+        return -self.heap[0]  # Convert back to positive
+
+    def is_empty(self):
+        """Check if the heap is empty"""
+        return len(self.heap) == 0
+    
+    def display(self):
+        """Print the heap (convert negatives back to positives for display)"""
+        print("Max Heap:", [-val for val in self.heap])
+
+# Example Usage
+min_heap = MinHeap()
+min_heap.push(10)
+min_heap.push(20)
+min_heap.push(5)
+min_heap.display()  # Min Heap: [5, 20, 10]
+print("Popped from Min Heap:", min_heap.pop())  # Popped from Min Heap: 5
+min_heap.display()  # Min Heap: [10, 20]
+
+max_heap = MaxHeap()
+max_heap.push(10)
+max_heap.push(20)
+max_heap.push(5)
+max_heap.display()  # Max Heap: [20, 10, 5]
+print("Popped from Max Heap:", max_heap.pop())  # Popped from Max Heap: 20
+max_heap.display()  # Max Heap: [10, 5]
+
+
+
+
+
+
