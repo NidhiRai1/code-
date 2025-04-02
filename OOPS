@@ -140,6 +140,49 @@ max_heap.display()  # Max Heap: [20, 10, 5]
 print("Popped from Max Heap:", max_heap.pop())  # Popped from Max Heap: 20
 max_heap.display()  # Max Heap: [10, 5]
 
+#Priority Queue 
+
+import heapq
+
+class PriorityQueue:
+    def __init__(self):
+        """Initialize an empty priority queue (Min Heap)"""
+        self.queue = []
+    
+    def enqueue(self, val, priority):
+        """Insert an element with priority"""
+        heapq.heappush(self.queue, (priority, val))  # Tuple (priority, value)
+    
+    def dequeue(self):
+        """Remove and return the element with the highest priority (smallest number)"""
+        if self.is_empty():
+            print("Priority Queue is empty! Cannot dequeue.")
+            return None
+        return heapq.heappop(self.queue)[1]  # Extract value (not priority)
+    
+    def peek(self):
+        """Return the highest-priority element without removing it"""
+        if self.is_empty():
+            return None
+        return self.queue[0][1]  # Extract value (not priority)
+    
+    def is_empty(self):
+        """Check if the queue is empty"""
+        return len(self.queue) == 0
+    
+    def display(self):
+        """Print the priority queue"""
+        print("Priority Queue:", self.queue)
+
+# Example Usage
+pq = PriorityQueue()
+pq.enqueue("Task A", 2)
+pq.enqueue("Task B", 1)  # Higher priority (lower number)
+pq.enqueue("Task C", 3)
+pq.display()  # Priority Queue: [(1, 'Task B'), (2, 'Task A'), (3, 'Task C')]
+
+print("Dequeued:", pq.dequeue())  # Task B (priority 1)
+pq.display()  # Priority Queue: [(2, 'Task A'), (3, 'Task C')]
 
 
 
